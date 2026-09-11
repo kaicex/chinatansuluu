@@ -22,6 +22,11 @@
   --arch-band: .6rem;
 }
 
+/* бейдж Netlify не показываем */
+button#nl-badge {
+  display: none !important;
+}
+
 /* ---------- лист: текстура с тенями листьев, видна и внутри, и снаружи арки ---------- */
 
 .cover-front-bg,
@@ -232,6 +237,16 @@
   .cover-txt-circle {
     width: 76vw;
     height: 76vw;
+  }
+
+  /* кнопки уже арки, по ширине надписи */
+  .button,
+  .button.close {
+    width: fit-content;
+    min-width: 56vw;
+    max-width: 74vw;
+    padding: 3.6vw 7vw;
+    white-space: nowrap;
   }
 
   .cover-txt-name {
