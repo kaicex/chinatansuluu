@@ -174,14 +174,19 @@ button#nl-badge {
   width: calc(100% - 5.2rem);
 }
 
+.invite {
+  --arch-inset: 1.4rem 2rem 0;
+}
+
 .invite-content {
-  padding: 6rem 4rem 1rem;
+  width: 100%;
+  padding: 4rem 4rem 1rem;
 }
 
 /* золотой медальон вместо круглой иконки */
 .logo-wed {
   width: auto;
-  height: 5.5rem;
+  height: 4.5rem;
   filter: drop-shadow(0 3px 4px rgba(60, 40, 10, .25));
 }
 
@@ -195,7 +200,7 @@ button#nl-badge {
 
 /* золотые разделители с ромбом */
 .div-block-17::after,
-.invite-content > .general-txt:nth-child(4)::after {
+.t-date::after {
   content: "";
   display: block;
   width: 11rem;
@@ -211,8 +216,25 @@ button#nl-badge {
   color: var(--ink);
 }
 
-.invite-content > .general-txt:nth-child(5) {
+.t-address {
   color: var(--gold-dark);
+}
+
+/* текст приглашения: ровно три строки по <br>, блок шире */
+.t-invite {
+  white-space: nowrap;
+  letter-spacing: 0;
+}
+
+/* хозяева тоя */
+.t-hosts {
+  color: var(--gold-dark);
+  letter-spacing: 0;
+  margin-top: -.5rem;
+}
+
+.t-hosts strong {
+  color: var(--ink);
 }
 
 .link {
@@ -259,13 +281,22 @@ button#nl-badge {
     width: 87vw;
   }
 
+  .invite {
+    --arch-inset: 4vw 4.5vw 0;
+  }
+
   .invite-content {
-    padding: 12vw 10vw 1rem;
+    padding: 10vw 10vw 1rem;
+  }
+
+  .t-invite,
+  .t-hosts {
+    font-size: 3vw;
   }
 
   .logo-wed {
     width: auto;
-    height: 18vw;
+    height: 14vw;
   }
 
   .invite-name {
@@ -274,7 +305,7 @@ button#nl-badge {
   }
 
   .div-block-17::after,
-  .invite-content > .general-txt:nth-child(4)::after {
+  .t-date::after {
     width: 44vw;
     margin-top: 4vw;
   }
