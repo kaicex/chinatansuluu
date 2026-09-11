@@ -23,8 +23,12 @@
 }
 
 /* бейдж Netlify не показываем */
-button#nl-badge {
+html body #nl-badge,
+html body #nl-card,
+html body .nl-badge,
+html body .nl-card {
   display: none !important;
+  visibility: hidden !important;
 }
 
 /* ---------- лист: текстура с тенями листьев, видна и внутри, и снаружи арки ---------- */

@@ -120,6 +120,28 @@
 
 
 
+  <script>
+    // Netlify вставляет бейдж «Powered by Netlify» — удаляем его, в том числе если он появится позже
+    // или окажется внутри shadow DOM
+    (function () {
+      var SELECTOR = "#nl-badge, #nl-card, .nl-badge, .nl-card";
+      var scheduled = false;
+
+      function removeBadge() {
+        scheduled = false;
+        document.querySelectorAll(SELECTOR).forEach(function (el) { el.remove(); });
+        document.querySelectorAll("*").forEach(function (host) {
+          if (host.shadowRoot && host.shadowRoot.querySelector(SELECTOR)) host.remove();
+        });
+      }
+
+      removeBadge();
+      new MutationObserver(function () {
+        if (!scheduled) { scheduled = true; requestAnimationFrame(removeBadge); }
+      }).observe(document.documentElement, { childList: true, subtree: true });
+    })();
+  </script>
+
 </body>
 
 </html>
