@@ -176,7 +176,7 @@
 /* золотой медальон вместо круглой иконки */
 .logo-wed {
   width: auto;
-  height: 8rem;
+  height: 5.5rem;
   filter: drop-shadow(0 3px 4px rgba(60, 40, 10, .25));
 }
 
@@ -250,7 +250,7 @@
 
   .logo-wed {
     width: auto;
-    height: 26vw;
+    height: 18vw;
   }
 
   .invite-name {
