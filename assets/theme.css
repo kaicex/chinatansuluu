@@ -1,0 +1,266 @@
+/* Тема «изумруд + золото + бежевая бумага». Подключается после CSS Webflow и перекрывает оформление;
+   шрифты и фон страницы — исходные из Webflow. */
+
+:root {
+  --emerald-deep: #0e241b;
+  --emerald: #173828;
+  --gold: #b8955a;
+  --gold-light: #dcc28f;
+  --gold-dark: #8c6a35;
+  --cream: #f6efe2;
+  --ink: #1f3327;
+
+  --paper: #ece1cc;
+  --paper-back: #d6c5a6;
+  --paper-texture: url("paper-light.jpg");
+  --marble: url("marble.jpg");
+
+  --diamond: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1l5 11-5 11-5-11z' fill='%23B8955A'/%3E%3Cpath d='M1 12l11-3.2L23 12l-11 3.2z' fill='%23B8955A' opacity='.55'/%3E%3C/svg%3E");
+
+  /* мраморная арка: внешний контур и толщина полосы */
+  --arch-inset: 3.6rem 2rem 0;
+  --arch-band: .6rem;
+}
+
+/* ---------- лист: текстура с тенями листьев, видна и внутри, и снаружи арки ---------- */
+
+.cover-front-bg,
+.invite {
+  background-color: var(--paper);
+  background-image: var(--paper-texture);
+  background-size: cover;
+  background-position: 50% 50%;
+  background-blend-mode: normal;
+}
+
+/* оборот обложки при перевороте — та же бумага, чуть темнее */
+.cover-back-bg {
+  background-color: var(--paper-back);
+  background-image: var(--paper-texture);
+  background-size: cover;
+  background-position: 50% 50%;
+  background-blend-mode: multiply;
+}
+
+/* ---------- мраморная арка: только полоса, середина прозрачная ---------- */
+
+.cover-front-bg::before,
+.invite::before {
+  content: "";
+  position: absolute;
+  inset: var(--arch-inset);
+  border: var(--arch-band) solid transparent;
+  border-bottom: 0;
+  border-radius: 999px 999px 0 0;
+  background: var(--marble) center / cover border-box;
+  -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0) border-box;
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) padding-box exclude, linear-gradient(#000 0 0) border-box;
+}
+
+/* тонкая золотая линия по внутреннему краю мрамора; поле внутри почти прозрачное */
+.cover-front-bg::after,
+.frame {
+  content: "";
+  position: absolute;
+  inset: var(--arch-inset);
+  margin: var(--arch-band) var(--arch-band) 0;
+  border: 1.5px solid var(--gold);
+  border-bottom: 0;
+  border-radius: 999px 999px 0 0;
+  background: rgba(255, 251, 243, .12);
+  box-shadow: inset 0 0 0 6px rgba(255, 251, 243, .12), inset 0 0 0 7px var(--gold-light);
+}
+
+/* ---------- орнаменты залиты мрамором: картинка служит маской ---------- */
+
+.image,
+.image-rollingg,
+.cover-txt-circle::before {
+  background: var(--marble) center / cover;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-origin: content-box;
+  mask-origin: content-box;
+}
+
+/* саму картинку прячем, остаётся только её силуэт в мраморе */
+.image,
+.image-rollingg {
+  object-position: -99999px 0;
+}
+
+.image {
+  position: relative;
+  z-index: 1;
+  -webkit-mask-image: url("ornament-top-gold.svg");
+  mask-image: url("ornament-top-gold.svg");
+}
+
+.image-rollingg {
+  -webkit-mask-image: url("frame-just-gold.svg");
+  mask-image: url("frame-just-gold.svg");
+}
+
+.cover-txt-circle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 50%;
+  -webkit-mask-image: url("frame-man-gold.svg");
+  mask-image: url("frame-man-gold.svg");
+}
+
+.front-image-design {
+  z-index: 1;
+}
+
+/* ---------- обложка ---------- */
+
+.cover-txt-main {
+  color: var(--ink);
+  padding-top: 5rem;
+  font-size: 3.4rem;
+}
+
+.cover-txt-circle {
+  color: var(--gold-dark);
+  background-image: none;
+  box-shadow: none;
+  width: 25rem;
+  height: 25rem;
+}
+
+.cover-txt {
+  color: var(--gold-dark);
+}
+
+.cover-txt-name {
+  color: var(--ink);
+  font-size: 4.4rem;
+}
+
+/* ---------- кнопки ---------- */
+
+.button,
+.button.close {
+  background: var(--emerald) var(--marble) center / cover;
+  color: var(--gold-light);
+  border: 1px solid var(--gold);
+  box-shadow: 0 0 0 4px rgba(184, 149, 90, .18), 0 10px 25px rgba(0, 0, 0, .3);
+}
+
+.button:hover {
+  color: var(--cream);
+  box-shadow: 0 0 0 4px rgba(184, 149, 90, .35), 0 10px 25px rgba(0, 0, 0, .35);
+}
+
+/* ---------- разворот приглашения ---------- */
+
+.invite-bottom-img {
+  z-index: 0;
+  left: 2.6rem;
+  right: 2.6rem;
+  width: calc(100% - 5.2rem);
+}
+
+.invite-content {
+  padding: 6rem 4rem 1rem;
+}
+
+/* золотой медальон вместо круглой иконки */
+.logo-wed {
+  width: auto;
+  height: 8rem;
+  filter: drop-shadow(0 3px 4px rgba(60, 40, 10, .25));
+}
+
+.invite-name {
+  color: var(--ink);
+}
+
+.invite-name[guests] {
+  color: var(--gold-dark);
+}
+
+/* золотые разделители с ромбом */
+.div-block-17::after,
+.invite-content > .general-txt:nth-child(4)::after {
+  content: "";
+  display: block;
+  width: 11rem;
+  height: 14px;
+  margin: 1.1rem auto 0;
+  background:
+    var(--diamond) center / 14px 14px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) left center / calc(50% - 14px) 1px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) right center / calc(50% - 14px) 1px no-repeat;
+}
+
+.general-txt {
+  color: var(--ink);
+}
+
+.invite-content > .general-txt:nth-child(5) {
+  color: var(--gold-dark);
+}
+
+.link {
+  color: var(--ink);
+  text-decoration-color: rgba(184, 149, 90, .6);
+  text-underline-offset: 3px;
+}
+
+/* ---------- телефон ---------- */
+
+@media screen and (max-width: 479px) {
+  :root {
+    --arch-inset: 14vw 4.5vw 0;
+    --arch-band: 2.2vw;
+  }
+
+  .cover-txt-main {
+    font-size: 9vw;
+    padding-top: 14vw;
+  }
+
+  .cover-txt-circle {
+    width: 76vw;
+    height: 76vw;
+  }
+
+  .cover-txt-name {
+    font-size: 13.5vw;
+  }
+
+  .invite-bottom-img {
+    left: 6.5vw;
+    right: 6.5vw;
+    width: 87vw;
+  }
+
+  .invite-content {
+    padding: 12vw 10vw 1rem;
+  }
+
+  .logo-wed {
+    width: auto;
+    height: 26vw;
+  }
+
+  .invite-name {
+    color: var(--ink);
+    font-size: 10vw;
+  }
+
+  .div-block-17::after,
+  .invite-content > .general-txt:nth-child(4)::after {
+    width: 44vw;
+    margin-top: 4vw;
+  }
+}
