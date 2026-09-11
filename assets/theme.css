@@ -23,6 +23,8 @@
 }
 
 /* бейдж Netlify не показываем */
+html body iframe#nl-badge-frame,
+html body iframe#nl-hud-frame,
 html body #nl-badge,
 html body #nl-card,
 html body .nl-badge,
